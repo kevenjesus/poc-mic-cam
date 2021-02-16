@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useRef } from 'react'
 
 function App() {
+
+  const videoRef = useRef();
+
+  useEffect(() => {
+    const getWebCam = async () => {
+      await navigator.mediaDevices
+          .getUserMedia({ video: true, audio: true })
+          .then(stream => {
+              videoRef.current.srcObject = stream
+          })
+          .catch(error => {
+              console.error('Erro ao iniciar permissoes', error)
+          })
+    }
+
+    getWebCam();
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{display: 'flex', width: '100%', height:'100vh', justifyContent: 'center', alignItems: 'center'}}>
+      <video ref={videoRef} width="320" playsInline autoPlay />
     </div>
   );
 }
