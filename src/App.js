@@ -20,6 +20,7 @@ function App() {
   })
   return (
     <div style={{display: 'flex', width: '100%', height:'100vh', justifyContent: 'center', alignItems: 'center'}}>
+      <h1>App carregou</h1>
       <video ref={videoRef} width="320" playsInline autoPlay />
     </div>
   );
